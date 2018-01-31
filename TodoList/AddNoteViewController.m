@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *noteHead;
 @property (weak, nonatomic) IBOutlet UITextView *noteText;
+@property (weak, nonatomic) IBOutlet UISwitch *importancy;
 
 @end
 
@@ -21,17 +22,34 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-}
-- (IBAction)addNote:(id)sender {
     
-    [self.notes addObject: self.noteHead.text];
-    [self.noteDetails addObject:self.noteText.text];
-    [self.navigationController popViewControllerAnimated:YES];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:
+                                   self action:@selector(dismissKeyboard)];
+    
+    [self.view addGestureRecognizer:tap];
+}
+
+-(void)dismissKeyboard {
+    [self.noteHead resignFirstResponder];
+    [self.noteText resignFirstResponder];
+}
+
+- (IBAction)addNote:(id)sender {
+    if ([self.importancy isOn]) {
+        [self.model addImportantNote:self.noteHead.text];
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self.model addNote:self.noteHead.text];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    //
+    
+    //Dispose of any resources that can be recreated.
 }
 
 /*

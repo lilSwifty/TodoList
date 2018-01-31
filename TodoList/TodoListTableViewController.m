@@ -8,33 +8,44 @@
 
 #import "TodoListTableViewController.h"
 #import "AddNoteViewController.h"
+#import "Model.h"
 
 @interface TodoListTableViewController ()
 
 
-//@property (nonatomic) NSMutableArray *personalNotes;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *addNote;
-@property (nonatomic) NSMutableArray *todos;
+@property (nonatomic) Model *model;
+
+
 @end
 
 @implementation TodoListTableViewController
 
 
-- (void) enableButtonOnStart{
-    self.addNote.enabled = YES;
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if(section == 0)
+    {
+        return @"Important";
+    }
+    else if(section == 1)
+    {
+        return @"To-Do";
+    }
+    else
+    {
+        return @"Done";
+    }
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self enableButtonOnStart];
+    self.model = [[Model alloc] init];
     
-    // self.model = [[Model alloc] init]
+    
     // init-metoden för Model kan ladda från NSUserDefaults
-    
-    self.todos = @[@"First", @"Second"].mutableCopy;
-    //self.todos = [[NSMutableArray alloc]init].mutableCopy;
-    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -42,14 +53,9 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    
-    
-    //self.personalNotes = @[@"First note", @"Second Note", @"Third Note"].mutableCopy;
-    //@{@"name" : @"Stuff", @"category" : @"Home"}
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [self enableButtonOnStart];
     [self.tableView reloadData];
     
 }
@@ -62,11 +68,17 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return self.todos.count;
+    if (section == 0) {
+        return [self.model importantAmount];
+    }else if(section == 1){
+        return [self.model todosAmount];
+    }else{
+        return [self.model didAmount];
+    }
 }
 
 
@@ -75,11 +87,17 @@
     
     // Configure the cell...
     
-    cell.textLabel.text = self.todos[indexPath.row];
-    
+    if (indexPath.row == 0) {
+        cell.textLabel.text = self.model.importantTodos[indexPath.row];
+    }else if(indexPath.row == 1){
+        cell.textLabel.text = self.model.todos[indexPath.row];
+    }else{
+        cell.textLabel.text = self.model.didDos[indexPath.row];
+    }
+   
+
     return cell;
 }
-
 
 /*
 // Override to support conditional editing of the table view.
@@ -88,18 +106,17 @@
     return YES;
 }
 */
+ 
 
-/*
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
+        [self.model removeNotes:(int)indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
-*/
 
 /*
 // Override to support rearranging the table view.
@@ -129,7 +146,7 @@
         personalNote.title = cell.textLabel.text;
     }else if([segue.identifier isEqualToString:@"write"]){
         AddNoteViewController *add = [segue destinationViewController];
-        add.notes = self.todos;
+        add.model = self.model;
      }
   
     

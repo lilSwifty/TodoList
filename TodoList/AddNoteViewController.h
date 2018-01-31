@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Model.h"
 
 @interface AddNoteViewController : UIViewController
 
-@property (nonatomic) NSMutableArray *notes;
-@property (nonatomic) NSMutableArray *noteDetails;
+@property (nonatomic) Model *model;
 
 @end
