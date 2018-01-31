@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  AddNoteViewController.h
 //  TodoList
 //
 //  Created by Mani Sedighi on 30/01/2018.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface AddNoteViewController : UIViewController
 
 @end
-
