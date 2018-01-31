@@ -9,14 +9,21 @@
 #import "DetailViewController.h"
 
 @interface DetailViewController ()
+@property (weak, nonatomic) IBOutlet UITextView *noteDetails;
 
 @end
 
 @implementation DetailViewController
 
+- (IBAction)deleteNote:(id)sender {
+        //delete note from list
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    // self.noteDetails = [NSString]
 }
 
 - (void)didReceiveMemoryWarning {

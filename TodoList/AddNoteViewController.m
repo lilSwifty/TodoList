@@ -7,8 +7,12 @@
 //
 
 #import "AddNoteViewController.h"
+#import "TodoListTableViewController.h"
 
 @interface AddNoteViewController ()
+
+@property (weak, nonatomic) IBOutlet UITextField *noteHead;
+@property (weak, nonatomic) IBOutlet UITextView *noteText;
 
 @end
 
@@ -17,6 +21,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+- (IBAction)addNote:(id)sender {
+    
+    [self.notes addObject: self.noteHead.text];
+    [self.noteDetails addObject:self.noteText.text];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

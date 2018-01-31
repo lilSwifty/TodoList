@@ -8,24 +8,33 @@
 
 /* Begin PBXBuildFile section */
 		537085102020A0A900393B33 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5370850F2020A0A900393B33 /* AppDelegate.m */; };
-		537085132020A0A900393B33 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 537085122020A0A900393B33 /* ViewController.m */; };
 		537085162020A0A900393B33 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 537085142020A0A900393B33 /* Main.storyboard */; };
 		537085182020A0A900393B33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 537085172020A0A900393B33 /* Assets.xcassets */; };
 		5370851B2020A0A900393B33 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 537085192020A0A900393B33 /* LaunchScreen.storyboard */; };
 		5370851E2020A0A900393B33 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5370851D2020A0A900393B33 /* main.m */; };
+		537085262020A5F400393B33 /* TodoListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 537085252020A5F400393B33 /* TodoListTableViewController.m */; };
+		537085292020B2E900393B33 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 537085282020B2E900393B33 /* DetailViewController.m */; };
+		5370852C2020B8E200393B33 /* AddNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5370852B2020B8E200393B33 /* AddNoteViewController.m */; };
+		5370857C2021E98300393B33 /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 5370857B2021E98300393B33 /* Model.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5370850B2020A0A900393B33 /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5370850E2020A0A900393B33 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5370850F2020A0A900393B33 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		537085112020A0A900393B33 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		537085122020A0A900393B33 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		537085152020A0A900393B33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		537085172020A0A900393B33 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5370851A2020A0A900393B33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5370851C2020A0A900393B33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5370851D2020A0A900393B33 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		537085242020A5F400393B33 /* TodoListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodoListTableViewController.h; sourceTree = "<group>"; };
+		537085252020A5F400393B33 /* TodoListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodoListTableViewController.m; sourceTree = "<group>"; };
+		537085272020B2E900393B33 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		537085282020B2E900393B33 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		5370852A2020B8E200393B33 /* AddNoteViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddNoteViewController.h; sourceTree = "<group>"; };
+		5370852B2020B8E200393B33 /* AddNoteViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddNoteViewController.m; sourceTree = "<group>"; };
+		5370857A2021E98300393B33 /* Model.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
+		5370857B2021E98300393B33 /* Model.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Model.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,15 +67,21 @@
 		5370850D2020A0A900393B33 /* TodoList */ = {
 			isa = PBXGroup;
 			children = (
+				537085242020A5F400393B33 /* TodoListTableViewController.h */,
+				537085252020A5F400393B33 /* TodoListTableViewController.m */,
 				5370850E2020A0A900393B33 /* AppDelegate.h */,
 				5370850F2020A0A900393B33 /* AppDelegate.m */,
-				537085112020A0A900393B33 /* ViewController.h */,
-				537085122020A0A900393B33 /* ViewController.m */,
 				537085142020A0A900393B33 /* Main.storyboard */,
+				537085272020B2E900393B33 /* DetailViewController.h */,
+				537085282020B2E900393B33 /* DetailViewController.m */,
 				537085172020A0A900393B33 /* Assets.xcassets */,
 				537085192020A0A900393B33 /* LaunchScreen.storyboard */,
 				5370851C2020A0A900393B33 /* Info.plist */,
 				5370851D2020A0A900393B33 /* main.m */,
+				5370852A2020B8E200393B33 /* AddNoteViewController.h */,
+				5370852B2020B8E200393B33 /* AddNoteViewController.m */,
+				5370857A2021E98300393B33 /* Model.h */,
+				5370857B2021E98300393B33 /* Model.m */,
 			);
 			path = TodoList;
 			sourceTree = "<group>";
@@ -142,9 +157,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				537085132020A0A900393B33 /* ViewController.m in Sources */,
+				537085262020A5F400393B33 /* TodoListTableViewController.m in Sources */,
 				5370851E2020A0A900393B33 /* main.m in Sources */,
 				537085102020A0A900393B33 /* AppDelegate.m in Sources */,
+				5370857C2021E98300393B33 /* Model.m in Sources */,
+				537085292020B2E900393B33 /* DetailViewController.m in Sources */,
+				5370852C2020B8E200393B33 /* AddNoteViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,7 +300,7 @@
 				DEVELOPMENT_TEAM = 59A2562242;
 				INFOPLIST_FILE = TodoList/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = MS.TodoList;
+				PRODUCT_BUNDLE_IDENTIFIER = MS.TodoList1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -296,7 +314,7 @@
 				DEVELOPMENT_TEAM = 59A2562242;
 				INFOPLIST_FILE = TodoList/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = MS.TodoList;
+				PRODUCT_BUNDLE_IDENTIFIER = MS.TodoList1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
