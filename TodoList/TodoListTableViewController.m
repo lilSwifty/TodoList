@@ -25,7 +25,7 @@
 
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    /*
+
     if(section == 0){
         return @"Important";
     }else if(section == 1){
@@ -33,8 +33,8 @@
     }else{
         return @"Done";
     }
-     */
-    return @"To-Do";
+    
+    //return @"To-Do";
 }
 
 
@@ -56,7 +56,7 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    
+    NSLog(@"i listan finns: %@", self.model.todos);
     self.model.todos = [[[NSUserDefaults standardUserDefaults] objectForKey:@"minLista"]mutableCopy];
     self.model.details = [[[NSUserDefaults standardUserDefaults] objectForKey:@"minaDetaljer"]mutableCopy];
     [self.tableView reloadData];
@@ -71,12 +71,12 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    /*
+    
     if (section == 0) {
         return [self.model importantAmount];
     }else if(section == 1){
@@ -84,10 +84,10 @@
     }else{
         return [self.model didAmount];
     }
-     */
     
     
-    return [self.model todosAmount];
+    
+    //return [self.model todosAmount];
 }
 
 
@@ -96,17 +96,17 @@
     
     // Configure the cell...
     
-    cell.textLabel.text = self.model.todos[indexPath.row];
+    //cell.textLabel.text = self.model.todos[indexPath.row];
     
-    /*
-    if (indexPath.row == 0) {
-        cell.textLabel.text = self.model.importantTodos[indexPath.row];
-    }else if(indexPath.row == 1){
+    
+    if (indexPath.section == 0) {
+        cell.textLabel.text = self.model.importantArray[indexPath.row];
+    }else if(indexPath.section == 1){
         cell.textLabel.text = self.model.todos[indexPath.row];
     }else{
         cell.textLabel.text = self.model.didDos[indexPath.row];
     }
-    */
+    
    
 
     return cell;
@@ -124,7 +124,7 @@
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.model removeNotes:(int)indexPath.row];
+        [self.model deleteNote:(int)indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
@@ -137,6 +137,9 @@
 
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+    if (fromIndexPath != toIndexPath) {
+        <#statements#>
+    }
 }
 
 

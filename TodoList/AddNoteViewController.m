@@ -13,7 +13,6 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *noteHead;
 @property (weak, nonatomic) IBOutlet UITextView *noteText;
-@property (weak, nonatomic) IBOutlet UISwitch *importancy;
 
 @end
 
@@ -27,6 +26,8 @@
                                    self action:@selector(dismissKeyboard)];
     
     [self.view addGestureRecognizer:tap];
+    
+    self.model = [[Model alloc]init];
 }
 
 -(void)dismissKeyboard {
@@ -36,21 +37,8 @@
 
 - (IBAction)addNote:(id)sender {
     
-    [self.model addNote:self.noteHead.text];
-    [self.model addDetails:self.noteText.text];
+    [self.model addNote:self.noteHead.text: self.noteText.text];
     [self.navigationController popViewControllerAnimated:YES];
-    
-    /*
-    if ([self.importancy isOn]) {
-        [self.model addImportantNote:self.noteHead.text];
-        [self.model addDetails:self.noteText.text];
-        [self.navigationController popViewControllerAnimated:YES];
-    }else{
-        [self.model addNote:self.noteHead.text];
-        [self.model addDetails:self.noteText.text];
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-    */
     
     
 }

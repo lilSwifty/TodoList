@@ -16,14 +16,25 @@
     if(self){
         
         self.todos = [[[NSUserDefaults standardUserDefaults] objectForKey:@"minLista"]mutableCopy];
-        self.details = [[[NSUserDefaults standardUserDefaults] objectForKey:@"minaDetaljer"]mutableCopy];
+        
+        //self.importantArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"viktig"]mutableCopy];
         
         
         if (self.todos == nil) {
-            self.todos = @[].mutableCopy;
-            self.details = @[].mutableCopy;
+            self.todos = [[NSMutableArray alloc]init];
+            
             
         }
+    }
+    
+    if(self){
+        
+        self.details = [[[NSUserDefaults standardUserDefaults] objectForKey:@"minaDetaljer"]mutableCopy];
+        
+        if (self.details == nil) {
+            self.details = [[NSMutableArray alloc]init];
+        }
+        
     }
     return self;
 }
@@ -44,22 +55,59 @@
 }
 */
  
-
+/*
  -(void) addNote:(NSString*)note{
      [self.todos addObject: note];
      [self saveNotes];
  }
+*/
 
+-(void) addNote:(NSString *)note :(NSString *)detail{
+    [self.todos addObject:note];
+    [self.details addObject:detail];
+    [[NSUserDefaults standardUserDefaults] setObject:self.todos forKey:@"minLista"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.details forKey:@"minaDetaljer"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+}
+
+-(void)deleteNote:(NSInteger)index{
+    [self.todos removeObjectAtIndex:(int)index];
+    [self.details removeObjectAtIndex:(int)index];
+    [[NSUserDefaults standardUserDefaults] setObject:self.todos forKey:@"minLista"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.details forKey:@"minaDetaljer"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+}
+
+/*
 -(void) addDetails:(NSString *)detail{
     [self.details addObject: detail];
     [self saveNotes];
 }
+*/
+
 /*
 -(void)addImportantNote:(NSString*)note{
-    [self.importantTodos addObject:note];
+    [self.importantArray addObject:note];
     [self saveNotes];
 }
 */
+
+
+/*
+-(void) importantDetails:(NSString *)important{
+    [self.importantArray addObject:important];
+    [self saveNotes];
+}
+
+
+-(void) isNotImportant{
+    [self.importantArray addObject:@"inte viktig"];
+    [self saveNotes];
+}
+*/
+
 
 
 -(NSUInteger)todosAmount{
@@ -67,33 +115,30 @@
 }
 
 
-/*
--(NSUInteger)importantAmount{
-    return self.importantTodos.count;
-}
-*/
 
-/*
+-(NSUInteger)importantAmount{
+    return self.importantArray.count;
+}
+
+
+
 -(NSUInteger)didAmount{
     return self.didDos.count;
 }
-*/
 
--(void)saveNotes{
-    [[NSUserDefaults standardUserDefaults] setObject:self.todos forKey:@"minLista"];
-    [[NSUserDefaults standardUserDefaults] setObject:self.details forKey:@"minaDetaljer"];
-    //[[NSUserDefaults standardUserDefaults] setObject:self.importantTodos forKey:@"viktigLista"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
 
+
+
+/*
 -(void)removeNotes:(int)index{
     [self.todos removeObjectAtIndex:index];
     [self saveNotes];
 }
+*/
 
 /*
 -(void)removeImportant:(int)index{
-    [self.importantTodos removeObjectAtIndex:index];
+    [self.importantArray removeObjectAtIndex:index];
     [self saveNotes];
 }
 */
