@@ -22,7 +22,22 @@
 
 @implementation TodoListTableViewController
 
-
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.model = [[Model alloc] init];
+    //[self.model loadTables];
+   
+    
+    
+    // init-metoden för Model kan ladda från NSUserDefaults
+    
+    // Uncomment the following line to preserve selection between presentations.
+    // self.clearsSelectionOnViewWillAppear = NO;
+    
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+}
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
 
@@ -38,29 +53,25 @@
 }
 
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.model = [[Model alloc] init];
-    
-    
-       
-    
-    // init-metoden för Model kan ladda från NSUserDefaults
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-}
 
 -(void)viewWillAppear:(BOOL)animated{
-    NSLog(@"i listan finns: %@", self.model.todos);
-    self.model.todos = [[[NSUserDefaults standardUserDefaults] objectForKey:@"minLista"]mutableCopy];
-    self.model.details = [[[NSUserDefaults standardUserDefaults] objectForKey:@"minaDetaljer"]mutableCopy];
+    NSLog(@"TODO LISTAN: %@", self.model.todos);
+    NSLog(@"VIKTIG LISTAN: %@", self.model.importantArray);
+    NSLog(@"DETALJ-LISTAN: %@", self.model.details);
+    NSLog(@"VIKTIG-DETALJ-LISTAN: %@", self.model.importantDetails);
+    NSLog(@"DONE-DETALJ-LISTAN: %@", self.model.didDos);
+    NSLog(@"DONE-DETALJ-LISTAN: %@", self.model.doneDetails);
+    
+    [self.model loadTables];
     [self.tableView reloadData];
     
+    
+    /*
+    self.model.todos = [[[NSUserDefaults standardUserDefaults] objectForKey:@"minLista"]mutableCopy];
+    self.model.details = [[[NSUserDefaults standardUserDefaults] objectForKey:@"minaDetaljer"]mutableCopy];
+    self.model.importantArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"viktig"]mutableCopy];
+    [self.tableView reloadData];
+    */
 }
 
 - (void)didReceiveMemoryWarning {
@@ -75,8 +86,6 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    
     if (section == 0) {
         return [self.model importantAmount];
     }else if(section == 1){
@@ -84,11 +93,10 @@
     }else{
         return [self.model didAmount];
     }
-    
-    
-    
-    //return [self.model todosAmount];
 }
+
+
+
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -107,18 +115,43 @@
         cell.textLabel.text = self.model.didDos[indexPath.row];
     }
     
-   
+    
+    /*
+    UIButton *more = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    more.frame = CGRectMake(200.0f, 5.0f, 75.0f, 30.0f);
+    [more setTitle:@"Add" forState:UIControlStateNormal];
+    [cell addSubview:more];
+    [more addTarget:self
+                        action:@selector(infoBtn::)
+              forControlEvents:UIControlEventTouchUpInside];
+    
+   */
 
     return cell;
 }
 
 /*
+-(IBAction)infoBtn:(id)sender{
+    
+}
+*/
+
+- (IBAction)editBUtton:(id)sender {
+    if ([self isEditing]) {
+        [self setEditing:NO animated:YES];
+    } else {
+        [self setEditing:YES animated:YES];
+    }
+}
+
+
+
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
+
  
 
 // Override to support editing the table view.
@@ -126,6 +159,8 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.model deleteNote:(int)indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        
         
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -137,10 +172,43 @@
 
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-    if (fromIndexPath != toIndexPath) {
-        <#statements#>
-    }
+    
+    NSString *stringToMove = self.model.todos[fromIndexPath.row];
+    
+    NSString *detailToMove = self.model.details[fromIndexPath.row];
+    
+    [self.model.todos removeObjectAtIndex:fromIndexPath.row];
+    [self.model.todos insertObject:stringToMove atIndex:toIndexPath.row];
+    
+    
+    [self.model.details removeObjectAtIndex:fromIndexPath.row];
+    [self.model.details insertObject:detailToMove atIndex:toIndexPath.row];
+    
+    [self.model saveTables];
+     
+    /*
+    self.model.importantArray = self.model.todos[fromIndexPath.row];
+    [self.model.todos removeObjectAtIndex:fromIndexPath.row];
+    [self.model.todos insertObject:self.model.importantArray atIndex:toIndexPath.row];
+    */
+    
+    
 }
+
+/*
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 1) {
+        [self.model.didDos addObject:[self.model.todos objectAtIndex:indexPath.row]];
+        [self.model.todos removeObjectAtIndex:indexPath.row];
+    }else if (indexPath.section == 2){
+        [self.model.todos addObject:[self.model.didDos objectAtIndex:indexPath.row]];
+        [self.model.didDos removeObjectAtIndex:indexPath.row];
+    }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.tableView reloadData];
+    
+}
+*/
 
 
 
@@ -149,6 +217,8 @@
     // Return NO if you do not want the item to be re-orderable.
     return YES;
 }
+
+
 
 
 
@@ -166,7 +236,7 @@
         int index = (int)[self.tableView indexPathForCell:cell].row;
         detail.detailArray = self.model.details;
         detail.detailIndex = index;
-        NSLog(@"list contains %@", self.model.details);
+        NSLog(@"DETALJLISTAN INNEHÅLLER %@", self.model.details);
     }else if([segue.identifier isEqualToString:@"write"]){
         AddNoteViewController *add = [segue destinationViewController];
         add.model = self.model;

@@ -8,11 +8,13 @@
 
 #import "AddNoteViewController.h"
 #import "TodoListTableViewController.h"
+#import "Model.h"
 
 @interface AddNoteViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *noteHead;
 @property (weak, nonatomic) IBOutlet UITextView *noteText;
+@property (nonatomic) NSString *important;
 
 @end
 
@@ -39,6 +41,7 @@
     
     [self.model addNote:self.noteHead.text: self.noteText.text];
     [self.navigationController popViewControllerAnimated:YES];
+    
     
     
 }

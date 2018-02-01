@@ -15,7 +15,7 @@
     
     if(self){
         
-        self.todos = [[[NSUserDefaults standardUserDefaults] objectForKey:@"minLista"]mutableCopy];
+        self.todos = [[[NSUserDefaults standardUserDefaults] objectForKey:@"TODO's"]mutableCopy];
         
         //self.importantArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"viktig"]mutableCopy];
         
@@ -29,15 +29,51 @@
     
     if(self){
         
-        self.details = [[[NSUserDefaults standardUserDefaults] objectForKey:@"minaDetaljer"]mutableCopy];
+        self.details = [[[NSUserDefaults standardUserDefaults] objectForKey:@"TODO-DETAIL"]mutableCopy];
         
         if (self.details == nil) {
             self.details = [[NSMutableArray alloc]init];
         }
         
     }
+    
+    if (self) {
+        self.importantArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"IMPORTANT"]mutableCopy];
+        
+        if (self.importantArray == nil) {
+            self.importantArray = [[NSMutableArray alloc]init];
+        }
+    }
+    
+    if (self) {
+        self.importantDetails = [[[NSUserDefaults standardUserDefaults] objectForKey:@"IMPORTANT-DETAIL"]mutableCopy];
+        
+        if (self.importantDetails == nil) {
+            self.importantDetails = [[NSMutableArray alloc]init];
+        }
+    }
+    
+    if (self) {
+        self.didDos = [[[NSUserDefaults standardUserDefaults] objectForKey:@"DONE-DETAILS"]mutableCopy];
+        
+        if (self.didDos == nil) {
+            self.didDos = [[NSMutableArray alloc]init];
+        }
+    }
+    
+    if (self) {
+        self.doneDetails = [[[NSUserDefaults standardUserDefaults] objectForKey:@"DONE-DETAILS"]mutableCopy];
+        
+        if (self.doneDetails == nil) {
+            self.doneDetails = [[NSMutableArray alloc]init];
+        }
+    }
+    
+    
     return self;
 }
+
+
 
 /*
 -(instancetype)initShit{
@@ -65,8 +101,12 @@
 -(void) addNote:(NSString *)note :(NSString *)detail{
     [self.todos addObject:note];
     [self.details addObject:detail];
-    [[NSUserDefaults standardUserDefaults] setObject:self.todos forKey:@"minLista"];
-    [[NSUserDefaults standardUserDefaults] setObject:self.details forKey:@"minaDetaljer"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.todos forKey:@"TODO's"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.details forKey:@"TODO-DETAIL"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.importantArray forKey:@"IMPORTANT"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.importantDetails forKey:@"IMPORTANT-DETAIL"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.didDos forKey:@"DONE"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.doneDetails forKey:@"DONE-DETAIL"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
 }
@@ -74,9 +114,23 @@
 -(void)deleteNote:(NSInteger)index{
     [self.todos removeObjectAtIndex:(int)index];
     [self.details removeObjectAtIndex:(int)index];
-    [[NSUserDefaults standardUserDefaults] setObject:self.todos forKey:@"minLista"];
-    [[NSUserDefaults standardUserDefaults] setObject:self.details forKey:@"minaDetaljer"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.todos forKey:@"TODO's"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.details forKey:@"TODO-DETAIL"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
+}
+
+-(void)saveTables{
+    [[NSUserDefaults standardUserDefaults] setObject:self.todos forKey:@"TODO's"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.details forKey:@"TODO-DETAIL"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.importantArray forKey:@"IMPORTANT"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+-(void) loadTables{
+    self.todos = [[[NSUserDefaults standardUserDefaults] objectForKey:@"TODO's"]mutableCopy];
+    self.details = [[[NSUserDefaults standardUserDefaults] objectForKey:@"TODO-DETAIL"]mutableCopy];
+    self.importantArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"IMPORTANT"]mutableCopy];
     
 }
 

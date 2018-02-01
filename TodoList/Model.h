@@ -12,7 +12,9 @@
 @property (nonatomic) NSMutableArray *todos;
 @property (nonatomic) NSMutableArray *details;
 @property (nonatomic) NSMutableArray *importantArray;
+@property (nonatomic) NSMutableArray *importantDetails;
 @property (nonatomic) NSMutableArray *didDos;
+@property (nonatomic) NSMutableArray *doneDetails;
 
 
 @property (nonatomic) NSString *notes;
@@ -20,6 +22,8 @@
 
 -(void) addNote:(NSString *)note :(NSString *)detail;
 -(void)deleteNote:(NSInteger)index;
+-(void)saveTables;
+-(void) loadTables;
 
 
 //-(void) addNote:(NSString*)note;
@@ -32,9 +36,9 @@
 -(NSUInteger)didAmount;
 -(NSUInteger)importantAmount;
 
--(void)removeNotes:(int)index;
--(void)removeImportant:(int)index;
--(void)removeDone:(int)index;
+//-(void)removeNotes:(int)index;
+//-(void)removeImportant:(int)index;
+//-(void)removeDone:(int)index;
 
 
 @end

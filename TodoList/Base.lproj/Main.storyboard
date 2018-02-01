@@ -19,16 +19,32 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" showsReorderControl="YES" indentationWidth="20" reuseIdentifier="TodosCell" id="gNF-1h-yEh">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" showsReorderControl="YES" indentationWidth="20" reuseIdentifier="TodosCell" textLabel="XaS-ew-TeW" detailTextLabel="Hnc-0V-Y8U" style="IBUITableViewCellStyleValue1" id="gNF-1h-yEh">
                                 <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gNF-1h-yEh" id="tmw-zw-HyT">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XaS-ew-TeW">
+                                            <rect key="frame" x="20.000000000000004" y="11.999999999999998" width="33.333333333333336" height="20.333333333333332"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="..." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Hnc-0V-Y8U">
+                                            <rect key="frame" x="380" y="11.999999999999998" width="14" height="20.333333333333332"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.96517544984817505" green="0.93147975206375122" blue="0.87016260623931885" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
-                                    <segue destination="2VM-Gp-yKY" kind="show" identifier="read" id="cLX-FS-oov"/>
+                                    <segue destination="2VM-Gp-yKY" kind="show" identifier="read" id="lIo-li-SA5"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -38,7 +54,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="IbS-9D-WTg">
-                        <barButtonItem key="rightBarButtonItem" title="New" id="8Sg-56-S3Z">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="qYz-6Z-XNx">
+                            <connections>
+                                <action selector="editBUtton:" destination="10h-a4-qar" id="lwZ-4c-CQm"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="8Sg-56-S3Z">
                             <connections>
                                 <segue destination="ScM-jL-OHu" kind="show" identifier="write" id="OQS-ep-Opz"/>
                             </connections>
