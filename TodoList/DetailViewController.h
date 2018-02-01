@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface DetailViewController : UIViewController
+@property (nonatomic) NSMutableArray *detailArray;
+@property (nonatomic) int detailIndex;
 
 @end

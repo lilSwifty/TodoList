@@ -9,6 +9,7 @@
 #import "TodoListTableViewController.h"
 #import "AddNoteViewController.h"
 #import "Model.h"
+#import "DetailViewController.h"
 
 @interface TodoListTableViewController ()
 
@@ -23,20 +24,17 @@
 
 
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    if(section == 0)
-    {
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    /*
+    if(section == 0){
         return @"Important";
-    }
-    else if(section == 1)
-    {
+    }else if(section == 1){
         return @"To-Do";
-    }
-    else
-    {
+    }else{
         return @"Done";
     }
+     */
+    return @"To-Do";
 }
 
 
@@ -44,6 +42,8 @@
     [super viewDidLoad];
     self.model = [[Model alloc] init];
     
+    
+       
     
     // init-metoden för Model kan ladda från NSUserDefaults
     
@@ -56,6 +56,9 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    
+    self.model.todos = [[[NSUserDefaults standardUserDefaults] objectForKey:@"minLista"]mutableCopy];
+    self.model.details = [[[NSUserDefaults standardUserDefaults] objectForKey:@"minaDetaljer"]mutableCopy];
     [self.tableView reloadData];
     
 }
@@ -68,10 +71,12 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    /*
     if (section == 0) {
         return [self.model importantAmount];
     }else if(section == 1){
@@ -79,6 +84,10 @@
     }else{
         return [self.model didAmount];
     }
+     */
+    
+    
+    return [self.model todosAmount];
 }
 
 
@@ -87,6 +96,9 @@
     
     // Configure the cell...
     
+    cell.textLabel.text = self.model.todos[indexPath.row];
+    
+    /*
     if (indexPath.row == 0) {
         cell.textLabel.text = self.model.importantTodos[indexPath.row];
     }else if(indexPath.row == 1){
@@ -94,6 +106,7 @@
     }else{
         cell.textLabel.text = self.model.didDos[indexPath.row];
     }
+    */
    
 
     return cell;
@@ -113,24 +126,27 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.model removeNotes:(int)indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
 
-/*
+
+
+
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
 }
-*/
 
-/*
+
+
 // Override to support conditional rearranging of the table view.
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the item to be re-orderable.
     return YES;
 }
-*/
+
 
 
 #pragma mark - Navigation
@@ -141,13 +157,28 @@
     // Pass the selected object to the new view controller.
     
     if ([segue.identifier isEqualToString:@"read"]) {
-        UIViewController *personalNote = [segue destinationViewController];
         UITableViewCell *cell = sender;
-        personalNote.title = cell.textLabel.text;
+        DetailViewController *detail = [segue destinationViewController];
+        detail.title = cell.textLabel.text;
+        int index = (int)[self.tableView indexPathForCell:cell].row;
+        detail.detailArray = self.model.details;
+        detail.detailIndex = index;
+        NSLog(@"list contains %@", self.model.details);
     }else if([segue.identifier isEqualToString:@"write"]){
         AddNoteViewController *add = [segue destinationViewController];
         add.model = self.model;
      }
+    
+    /*
+     if ([segue.identifier isEqualToString:@"read"]) {
+     UIViewController *personalNote = [segue destinationViewController];
+     UITableViewCell *cell = sender;
+     personalNote.title = cell.textLabel.text;
+     }else if([segue.identifier isEqualToString:@"write"]){
+     AddNoteViewController *add = [segue destinationViewController];
+     add.model = self.model;
+     }
+    */
   
     
     

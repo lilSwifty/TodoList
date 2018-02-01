@@ -35,13 +35,23 @@
 }
 
 - (IBAction)addNote:(id)sender {
+    
+    [self.model addNote:self.noteHead.text];
+    [self.model addDetails:self.noteText.text];
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    /*
     if ([self.importancy isOn]) {
         [self.model addImportantNote:self.noteHead.text];
+        [self.model addDetails:self.noteText.text];
         [self.navigationController popViewControllerAnimated:YES];
     }else{
         [self.model addNote:self.noteHead.text];
+        [self.model addDetails:self.noteText.text];
         [self.navigationController popViewControllerAnimated:YES];
     }
+    */
+    
     
 }
 

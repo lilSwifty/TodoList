@@ -10,21 +10,24 @@
 
 @interface Model : NSObject
 @property (nonatomic) NSMutableArray *todos;
-@property (nonatomic) NSMutableArray *importantTodos;
-@property (nonatomic) NSMutableArray *didDos;
+@property (nonatomic) NSMutableArray *details;
+//@property (nonatomic) NSMutableArray *importantTodos;
+//@property (nonatomic) NSMutableArray *didDos;
 @property (nonatomic) NSString *notes;
 @property (nonatomic) NSString *noteDetails;
-@property (nonatomic) NSDictionary *myDictionary;
+//@property (nonatomic) NSDictionary *myDictionary;
 
 -(void) addNote:(NSString*)note;
--(void)addImportantNote:(NSString*)note;
+-(void) addDetails:(NSString *)detail;
+//-(void)addImportantNote:(NSString*)note;
 
 -(NSUInteger)todosAmount;
--(NSUInteger)didAmount;
--(NSUInteger)importantAmount;
+//-(NSUInteger)didAmount;
+//-(NSUInteger)importantAmount;
 
 -(void)removeNotes:(int)index;
--(void)removeImportant:(int)index;
+//-(void)removeImportant:(int)index;
+//-(void)removeDone:(int)index;
 
 
 @end

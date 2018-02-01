@@ -21,6 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self showDetails];
     // Do any additional setup after loading the view.
     
     // self.noteDetails = [NSString]
@@ -29,6 +30,10 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void)showDetails{
+    self.noteDetails.text = self.detailArray[self.detailIndex];
 }
 
 /*
