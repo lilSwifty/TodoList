@@ -26,8 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.model = [[Model alloc] init];
-    [self.model loadTables];
-   
+
     
     
     // init-metoden för Model kan ladda från NSUserDefaults
@@ -62,8 +61,7 @@
     NSLog(@"VIKTIG-DETALJ-LISTAN: %@", self.model.importantDetails);
     NSLog(@"DONE-DETALJ-LISTAN: %@", self.model.didDos);
     NSLog(@"DONE-DETALJ-LISTAN: %@", self.model.doneDetails);
-    
-    [self.model loadTables];
+
     [self.tableView reloadData];
 }
 
@@ -214,37 +212,6 @@
     
 }
 
-/*
- //from important to todo
- 
- NSString *importantToMove = self.model.importantArray[fromIndexPath.row];
- NSString *importantDetailToMove = self.model.importantDetails[fromIndexPath.row];
- 
- [self.model.importantArray removeObjectAtIndex:fromIndexPath.row];
- [self.model.todos insertObject:importantToMove atIndex:toIndexPath.row];
- [self.model.importantDetails removeObjectAtIndex:fromIndexPath.row];
- [self.model.details insertObject:importantDetailToMove atIndex:toIndexPath.row];
- 
- [self.model saveTables];
- 
-*/
-
-
-/*
--(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 1) {
-        [self.model.didDos addObject:[self.model.todos objectAtIndex:indexPath.row]];
-        [self.model.todos removeObjectAtIndex:indexPath.row];
-    }else if (indexPath.section == 2){
-        [self.model.todos addObject:[self.model.didDos objectAtIndex:indexPath.row]];
-        [self.model.didDos removeObjectAtIndex:indexPath.row];
-    }
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self.tableView reloadData];
-    
-}
-*/
-
 
 
 // Override to support conditional rearranging of the table view.
@@ -294,9 +261,7 @@
         }
         detail.detailIndex = path.row;
         NSLog(@"DETAIL CONTAINS %@", self.model.details);
-    }else if ([segue.identifier isEqualToString:@"read"]){
-        
-    }else if([segue.identifier isEqualToString:@"write"]){
+    } else if([segue.identifier isEqualToString:@"write"]){
         AddNoteViewController *add = [segue destinationViewController];
         add.model = self.model;
      }

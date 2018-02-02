@@ -15,6 +15,15 @@
     
     if(self){
         
+       
+            self.todos = [[[NSUserDefaults standardUserDefaults] objectForKey:@"TODO's"]mutableCopy];
+            self.details = [[[NSUserDefaults standardUserDefaults] objectForKey:@"TODO-DETAIL"]mutableCopy];
+            self.importantArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"IMPORTANT"]mutableCopy];
+            self.importantDetails = [[[NSUserDefaults standardUserDefaults] objectForKey:@"IMPORTANT-DETAIL"]mutableCopy];
+            self.didDos = [[[NSUserDefaults standardUserDefaults] objectForKey:@"DONE"]mutableCopy];
+            self.doneDetails = [[[NSUserDefaults standardUserDefaults] objectForKey:@"DONE-DETAIL"]mutableCopy];
+        
+        
         self.todos = [[[NSUserDefaults standardUserDefaults] objectForKey:@"TODO's"]mutableCopy];
         
         //self.importantArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"viktig"]mutableCopy];
@@ -166,15 +175,7 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
--(void) loadTables{
-    self.todos = [[[NSUserDefaults standardUserDefaults] objectForKey:@"TODO's"]mutableCopy];
-    self.details = [[[NSUserDefaults standardUserDefaults] objectForKey:@"TODO-DETAIL"]mutableCopy];
-    self.importantArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"IMPORTANT"]mutableCopy];
-    self.importantDetails = [[[NSUserDefaults standardUserDefaults] objectForKey:@"IMPORTANT-DETAIL"]mutableCopy];
-    self.didDos = [[[NSUserDefaults standardUserDefaults] objectForKey:@"DONE"]mutableCopy];
-    self.doneDetails = [[[NSUserDefaults standardUserDefaults] objectForKey:@"DONE-DETAIL"]mutableCopy];
-    
-}
+
 
 /*
 -(void) addDetails:(NSString *)detail{

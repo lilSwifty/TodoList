@@ -30,8 +30,6 @@
                                    self action:@selector(dismissKeyboard)];
     
     [self.view addGestureRecognizer:tap];
-    
-    self.model = [[Model alloc]init];
 }
 
 -(void)dismissKeyboard {

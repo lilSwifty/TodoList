@@ -23,7 +23,6 @@
 -(void) addNote:(NSString *)note :(NSString *)detail;
 -(void)deleteNote:(NSInteger)index;
 -(void)saveTables;
--(void) loadTables;
 
 
 //-(void) addNote:(NSString*)note;
