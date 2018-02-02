@@ -14,7 +14,8 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *noteHead;
 @property (weak, nonatomic) IBOutlet UITextView *noteText;
-@property (nonatomic) NSString *important;
+@property (weak, nonatomic) IBOutlet UISwitch *important;
+
 
 @end
 
@@ -40,12 +41,16 @@
 
 - (IBAction)addNote:(id)sender {
     
-    [self.model addNote:self.noteHead.text: self.noteText.text];
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.important.isOn) {
+        [self.model addImportantNote:self.noteHead.text: self.noteText.text ];
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self.model addNote:self.noteHead.text: self.noteText.text];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
     
     NSLog(@"PRESSED SAVE");
-    
-    
     
 }
 

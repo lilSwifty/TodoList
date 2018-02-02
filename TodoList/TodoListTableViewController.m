@@ -16,7 +16,7 @@
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *addNote;
 @property (nonatomic) Model *model;
-
+//@property (nonatomic) NSMutableArray *selectedArray;
 
 
 @end
@@ -102,10 +102,13 @@
     
     if (indexPath.section == 0) {
         cell.textLabel.text = self.model.importantArray[indexPath.row];
+        //self.selectedArray = self.model.importantDetails;
     }else if(indexPath.section == 1){
         cell.textLabel.text = self.model.todos[indexPath.row];
+        //self.selectedArray = self.model.details;
     }else{
         cell.textLabel.text = self.model.didDos[indexPath.row];
+        //self.selectedArray = self.model.doneDetails;
     }
 
     return cell;
@@ -133,14 +136,32 @@
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.model deleteNote:(int)indexPath.row];
+        if (indexPath.section == 0) {
+            [self.model removeImportant:(int)indexPath.row];
+        }else if (indexPath.section == 1){
+            [self.model deleteNote:(int)indexPath.row];
+        }else if (indexPath.section == 2){
+            [self.model removeDone:(int)indexPath.row];
+        }
+        
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }   
+}
+
+- (void)tableView2:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [self.model removeImportant:(int)indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
         
         
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    }
 }
 
 
@@ -150,34 +171,64 @@
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
    
     
-    //from todo to important
-    NSString *stringToMove = self.model.todos[fromIndexPath.row];
-    NSString *detailToMove = self.model.details[fromIndexPath.row];
+    NSMutableArray *moveTextFrom;
+    NSMutableArray *moveDetailFrom;
+    NSMutableArray *moveTextTo;
+    NSMutableArray *moveDetailTo;
     
-    [self.model.todos removeObjectAtIndex:fromIndexPath.row];
-    [self.model.importantArray insertObject:stringToMove atIndex:toIndexPath.row];
-    [self.model.details removeObjectAtIndex:fromIndexPath.row];
-    [self.model.importantDetails insertObject:detailToMove atIndex:toIndexPath.row];
+    if (fromIndexPath.section == 0) {
+        moveTextFrom = self.model.importantArray;
+        moveDetailFrom = self.model.importantDetails;
+    }else if (fromIndexPath.section == 1){
+        moveTextFrom = self.model.todos;
+        moveDetailFrom = self.model.details;
+    }else if(fromIndexPath.section == 2){
+        moveTextFrom = self.model.didDos;
+        moveDetailFrom = self.model.doneDetails;
+    }
+    
+    if (toIndexPath.section == 0) {
+        moveTextTo = self.model.importantArray;
+        moveDetailTo = self.model.importantDetails;
+    }else if (toIndexPath.section == 1){
+        moveTextTo = self.model.todos;
+        moveDetailTo = self.model.details;
+    }else if (toIndexPath.section == 2){
+        moveTextTo = self.model.didDos;
+        moveDetailTo = self.model.doneDetails;
+    }
+    
+    
+    NSString *stringToMove = moveTextFrom[fromIndexPath.row];
+    NSString *detailToMove = moveDetailFrom[fromIndexPath.row];
+    
+    
+    
+    [moveTextFrom removeObjectAtIndex:fromIndexPath.row];
+    [moveTextTo insertObject:stringToMove atIndex:toIndexPath.row];
+    [moveDetailFrom removeObjectAtIndex:fromIndexPath.row];
+    [moveDetailTo insertObject:detailToMove atIndex:toIndexPath.row];
     
     [self.model saveTables];
     
-    
-    //from important to todo
-    /*
-    NSString *importantToMove = self.model.importantArray[fromIndexPath.row];
-    NSString *importantDetailToMove = self.model.importantDetails[fromIndexPath.row];
-    
-    [self.model.importantArray removeObjectAtIndex:fromIndexPath.row];
-    [self.model.todos insertObject:importantToMove atIndex:toIndexPath.row];
-    [self.model.importantDetails removeObjectAtIndex:fromIndexPath.row];
-    [self.model.details insertObject:importantDetailToMove atIndex:toIndexPath.row];
-    
-    [self.model saveTables];
-     */
-    
-
     
 }
+
+/*
+ //from important to todo
+ 
+ NSString *importantToMove = self.model.importantArray[fromIndexPath.row];
+ NSString *importantDetailToMove = self.model.importantDetails[fromIndexPath.row];
+ 
+ [self.model.importantArray removeObjectAtIndex:fromIndexPath.row];
+ [self.model.todos insertObject:importantToMove atIndex:toIndexPath.row];
+ [self.model.importantDetails removeObjectAtIndex:fromIndexPath.row];
+ [self.model.details insertObject:importantDetailToMove atIndex:toIndexPath.row];
+ 
+ [self.model saveTables];
+ 
+*/
+
 
 /*
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -217,8 +268,6 @@
 */
 
 
-
-
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -229,12 +278,24 @@
     
     if ([segue.identifier isEqualToString:@"read"]) {
         UITableViewCell *cell = sender;
+        
+        NSIndexPath *path = [self.tableView indexPathForCell:cell];
+        
         DetailViewController *detail = [segue destinationViewController];
         detail.title = cell.textLabel.text;
-        int index = (int)[self.tableView indexPathForCell:cell].row;
-        detail.detailArray = self.model.details;
-        detail.detailIndex = index;
+        //int index = (int)[self.tableView indexPathForCell:cell].row;
+        
+        if(path.section == 0) {
+        detail.detailArray = self.model.importantArray;
+        }else if(path.section == 1){
+            detail.detailArray = self.model.details;
+        }else if(path.section == 2){
+            detail.detailArray = self.model.doneDetails;
+        }
+        detail.detailIndex = path.row;
         NSLog(@"DETAIL CONTAINS %@", self.model.details);
+    }else if ([segue.identifier isEqualToString:@"read"]){
+        
     }else if([segue.identifier isEqualToString:@"write"]){
         AddNoteViewController *add = [segue destinationViewController];
         add.model = self.model;

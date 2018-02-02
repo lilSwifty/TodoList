@@ -30,15 +30,14 @@
 //-(void) addDetails:(NSString *)detail;
 
 //-(void) importantDetails:(NSString *)important;
-//-(void)addImportantNote:(NSString*)note;
+-(void)addImportantNote:(NSString*)note : (NSString *)detail;
 
 -(NSUInteger)todosAmount;
 -(NSUInteger)didAmount;
 -(NSUInteger)importantAmount;
 
-//-(void)removeNotes:(int)index;
-//-(void)removeImportant:(int)index;
-//-(void)removeDone:(int)index;
+-(void)removeImportant:(int)index;
+-(void)removeDone:(int)index;
 
 
 @end

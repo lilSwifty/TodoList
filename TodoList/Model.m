@@ -103,12 +103,22 @@
     [self.details addObject:detail];
     [[NSUserDefaults standardUserDefaults] setObject:self.todos forKey:@"TODO's"];
     [[NSUserDefaults standardUserDefaults] setObject:self.details forKey:@"TODO-DETAIL"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    /*
     [[NSUserDefaults standardUserDefaults] setObject:self.importantArray forKey:@"IMPORTANT"];
     [[NSUserDefaults standardUserDefaults] setObject:self.importantDetails forKey:@"IMPORTANT-DETAIL"];
     [[NSUserDefaults standardUserDefaults] setObject:self.didDos forKey:@"DONE"];
     [[NSUserDefaults standardUserDefaults] setObject:self.doneDetails forKey:@"DONE-DETAIL"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
     
+    */
+}
+
+-(void)addImportantNote:(NSString*)note : (NSString *)detail{
+    [self.importantArray addObject:note];
+    [self.importantDetails addObject:detail];
+    [[NSUserDefaults standardUserDefaults] setObject:self.importantArray forKey:@"IMPORTANT"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.importantDetails forKey:@"IMPORTANT-DETAIL"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 /*
@@ -125,6 +135,25 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
     
 }
+
+-(void)removeImportant:(int)index{
+    [self.importantArray removeObjectAtIndex:(int)index];
+    [self.importantDetails removeObjectAtIndex:(int)index];
+    [[NSUserDefaults standardUserDefaults] setObject:self.importantArray forKey:@"IMPORTANT"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.importantDetails forKey:@"IMPORTANT-DETAIL"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+
+
+-(void)removeDone:(int)index{
+    [self.didDos removeObjectAtIndex:index];
+    [self.doneDetails removeObjectAtIndex:(int)index];
+    [[NSUserDefaults standardUserDefaults] setObject:self.didDos forKey:@"DONE"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.doneDetails forKey:@"DONE-DETAIL"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 
 -(void)saveTables{
     [[NSUserDefaults standardUserDefaults] setObject:self.todos forKey:@"TODO's"];
@@ -154,12 +183,9 @@
 }
 */
 
-/*
--(void)addImportantNote:(NSString*)note{
-    [self.importantArray addObject:note];
-    [self saveNotes];
-}
-*/
+
+
+
 
 
 /*
@@ -203,19 +229,9 @@
 }
 */
 
-/*
--(void)removeImportant:(int)index{
-    [self.importantArray removeObjectAtIndex:index];
-    [self saveNotes];
-}
-*/
 
-/*
--(void)removeDone:(int)index{
-    [self.didDos removeObjectAtIndex:index];
-    [self saveNotes];
-}
-*/
+
+
 
 
 
