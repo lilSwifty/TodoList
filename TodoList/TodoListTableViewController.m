@@ -100,22 +100,30 @@
     
     if (indexPath.section == 0) {
         cell.textLabel.text = self.model.importantArray[indexPath.row];
-        //self.selectedArray = self.model.importantDetails;
+        [cell setBackgroundColor: [UIColor redColor]];
+        
     }else if(indexPath.section == 1){
         cell.textLabel.text = self.model.todos[indexPath.row];
-        //self.selectedArray = self.model.details;
+        [cell setBackgroundColor: [UIColor yellowColor]];
     }else{
         cell.textLabel.text = self.model.didDos[indexPath.row];
-        //self.selectedArray = self.model.doneDetails;
+        [cell setBackgroundColor: [UIColor greenColor]];
     }
 
     return cell;
 }
 
+/*
+- (void) refresh {
+    self.colorDisplay.backgroundColor = [self currentColor];
+}
+*/
+
 - (IBAction)editBUtton:(id)sender {
     if ([self isEditing]) {
         [self setEditing:NO animated:YES];
         [self.model saveTables];
+        [self.tableView reloadData];
     } else {
         [self setEditing:YES animated:YES];
     }
