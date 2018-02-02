@@ -22,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"PRESSED ADD NEW");
     // Do any additional setup after loading the view.
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:
@@ -41,6 +42,8 @@
     
     [self.model addNote:self.noteHead.text: self.noteText.text];
     [self.navigationController popViewControllerAnimated:YES];
+    
+    NSLog(@"PRESSED SAVE");
     
     
     

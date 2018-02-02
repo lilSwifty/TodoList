@@ -10,6 +10,8 @@
 
 @interface DetailViewController : UIViewController
 @property (nonatomic) NSMutableArray *detailArray;
+@property (nonatomic) NSMutableArray *importantDetail;
+@property (nonatomic) NSMutableArray *doneDetail;
 @property (nonatomic) int detailIndex;
 
 @end

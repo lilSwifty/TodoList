@@ -54,7 +54,7 @@
     }
     
     if (self) {
-        self.didDos = [[[NSUserDefaults standardUserDefaults] objectForKey:@"DONE-DETAILS"]mutableCopy];
+        self.didDos = [[[NSUserDefaults standardUserDefaults] objectForKey:@"DONE"]mutableCopy];
         
         if (self.didDos == nil) {
             self.didDos = [[NSMutableArray alloc]init];
@@ -111,6 +111,12 @@
     
 }
 
+/*
+-(void)moveNote:(NSString *)note:(NSString *) detail{
+    
+}
+*/
+
 -(void)deleteNote:(NSInteger)index{
     [self.todos removeObjectAtIndex:(int)index];
     [self.details removeObjectAtIndex:(int)index];
@@ -124,6 +130,10 @@
     [[NSUserDefaults standardUserDefaults] setObject:self.todos forKey:@"TODO's"];
     [[NSUserDefaults standardUserDefaults] setObject:self.details forKey:@"TODO-DETAIL"];
     [[NSUserDefaults standardUserDefaults] setObject:self.importantArray forKey:@"IMPORTANT"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.importantDetails forKey:@"IMPORTANT-DETAIL"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.didDos forKey:@"DONE"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.doneDetails forKey:@"DONE-DETAIL"];
+    
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -131,6 +141,9 @@
     self.todos = [[[NSUserDefaults standardUserDefaults] objectForKey:@"TODO's"]mutableCopy];
     self.details = [[[NSUserDefaults standardUserDefaults] objectForKey:@"TODO-DETAIL"]mutableCopy];
     self.importantArray = [[[NSUserDefaults standardUserDefaults] objectForKey:@"IMPORTANT"]mutableCopy];
+    self.importantDetails = [[[NSUserDefaults standardUserDefaults] objectForKey:@"IMPORTANT-DETAIL"]mutableCopy];
+    self.didDos = [[[NSUserDefaults standardUserDefaults] objectForKey:@"DONE"]mutableCopy];
+    self.doneDetails = [[[NSUserDefaults standardUserDefaults] objectForKey:@"DONE-DETAIL"]mutableCopy];
     
 }
 

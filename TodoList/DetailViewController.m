@@ -33,8 +33,10 @@
 }
 
 -(void)showDetails{
+    
     self.noteDetails.text = self.detailArray[self.detailIndex];
 }
+
 
 /*
 #pragma mark - Navigation
