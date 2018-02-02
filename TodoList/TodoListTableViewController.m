@@ -26,10 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.model = [[Model alloc] init];
-
-    
-    
-    // init-metoden för Model kan ladda från NSUserDefaults
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -95,9 +91,6 @@
     
     // Configure the cell...
     
-    //cell.textLabel.text = self.model.todos[indexPath.row];
-   
-    
     if (indexPath.section == 0) {
         cell.textLabel.text = self.model.importantArray[indexPath.row];
         [cell setBackgroundColor: [UIColor redColor]];
@@ -113,11 +106,6 @@
     return cell;
 }
 
-/*
-- (void) refresh {
-    self.colorDisplay.backgroundColor = [self currentColor];
-}
-*/
 
 - (IBAction)editBUtton:(id)sender {
     if ([self isEditing]) {
@@ -157,19 +145,6 @@
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
-
-- (void)tableView2:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.model removeImportant:(int)indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
-        
-        
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }
-}
-
 
 
 
@@ -276,17 +251,5 @@
     
     
 }
-
-/*
- if ([segue.identifier isEqualToString:@"read"]) {
- UIViewController *personalNote = [segue destinationViewController];
- UITableViewCell *cell = sender;
- personalNote.title = cell.textLabel.text;
- }else if([segue.identifier isEqualToString:@"write"]){
- AddNoteViewController *add = [segue destinationViewController];
- add.model = self.model;
- }
- */
-
 
 @end

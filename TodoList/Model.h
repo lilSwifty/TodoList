@@ -24,11 +24,6 @@
 -(void)deleteNote:(NSInteger)index;
 -(void)saveTables;
 
-
-//-(void) addNote:(NSString*)note;
-//-(void) addDetails:(NSString *)detail;
-
-//-(void) importantDetails:(NSString *)important;
 -(void)addImportantNote:(NSString*)note : (NSString *)detail;
 
 -(NSUInteger)todosAmount;
